@@ -1,4 +1,4 @@
-# MSDEA:e-Voting Application
+# MSDEA: e-Voting Application
 In these challenging COVID-19 times, the question on how to deal with the
 upcoming elections while maintaining proper social distancing norms has already
 been raised by several voices. We have been listening since ages that e-Voting is
