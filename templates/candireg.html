@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+<html>
+<head>
+  <title>Candidate's Reg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='candiREG_style.css')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>  
+</head>
+
+<body class="body">
+
+<div class="image-container">
+  <div class="text">Modern Secured Digital eVoting & Analysis</div>
+</div>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {%for msg in messages %}
+            <p>{{msg}}</p>
+        {% endfor %}
+    {% endif %}
+  {% endwith %}
+<div class="candidate-reg">
+  <div class="form">
+
+    <form method="POST" action="/candidate_reg">
+      <input type="text" name='Name' placeholder="FULL NAME" name="name"/>
+      <input type="text" name='DOB' placeholder="DOB (YYYY-MM-YY)" name="dob"/>
+      <input type="text" name='Register' placeholder="Register Number" name="reg_no"/>
+      <input type="text" name='Branch'placeholder="Branch" name="branch"/>
+      <input type="text" name='email'placeholder="abc@xyz.com" name="email_id"/>
+      <button type="submit">REGISTER</button>
+      <button type="button" onclick="window.location.href='/candidate'">View Candidates</button>
+      <button type="button" onclick="window.location.href='/voter'">View Voters</button>
+      <button type="button" onclick="window.location.href='/validatevoter'">Validate Voters</button>
+      <button type="button" onclick="window.location.href='/'">Back to Homepage</button>
+    </form>
+    
+  </div>
+  
+</div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+<html>
+<head>
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='login_style.css')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>  
+</head>
+
+<body class="body">
+	
+
+<div class="login-page">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages%}
+        <p>{{msg}}</p>
+        {% endfor %}
+    {% endif %}
+  {% endwith %}
+  <div class="form">
+
+    <form method="POST" action="/login">
+      <input type="text" name='Register' placeholder="&#xf007;  Register Number"/>
+      <input type="password" name='DOB' placeholder="&#xf023;  DOB (YYYY/MM/DD)"/>
+      <button type="submit">LOGIN</button>
+      <p class="message"></p>
+    </form>
+
+    <form class="login-form">
+      <button type="button" onclick="window.location.href='/signup'">SIGN UP</button>
+      <button type="button" onclick="window.location.href='/'">RETURN TO HOMEPAGE</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
