@@ -46,5 +46,3 @@ MSDEA presents numerous advantages over traditional voting system. In the
 initial stage there will be of course a little cost for planning and introduction.
 But, in the long run and with a widespread introduction, this e-Voting system will
 lead to a new revolution in elections, and many cost savings too.
-## Application Link
-The application is deployed [here](https://www.msdea.pythonanywhere.com "MSDEA homepage")
