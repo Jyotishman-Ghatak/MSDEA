@@ -1,50 +1,48 @@
-<!DOCTYPE HTML>
-<html lang="en" >
-<html>
-<head>
-  <title>Vote your Candidate!</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='candidate_style.css')}}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>  
-</head>
+<!DOCTYPE html>
+<html lang="en">
+    <html>
+        <head>
+            <title>Vote your Candidate!</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta charset="utf-8" />
+            <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='voteHere_style.css')}}" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+            <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600" rel="stylesheet" type="text/css" />
+        </head>
 
+        <div class="image-container">
+            <div class="text">Modern Secured Digital eVoting & Analysis</div>
+        </div>
 
-   <table class="candidate">
-        <thead>
-            <tr>
-		        <th>NAME</th>
-                <th>BRANCH</th>
-                <th>REG NO.</th>
-		        <th>SELECT</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            {% for candidate in candidates %}
-            <tr>
-                <td>{{candidate.Name}}</td>
-                <td>{{candidate.Branch}}</td>
-                <td>{{candidate.Register}}</td>
-		    <td>
-			<div class="radio">
-                    <form method="POST" action='/castvote'>
-                      <label><input type="radio" value='{{candidate.Register}}' name="optradio"></label>
-                    
-                 </div>
-		    </td>
-            
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-<center>
-<div class="button_css">	
-    <div class="vote">
-        <button type="submit" onclick="window.location.href='/login'">CONFIRM</button>
-    </div>
-    </form>
-</div>
-</center>
+        <table class="candidate">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>NAME</th>
+                    <th>BRANCH</th>
+                    <th>REG NO.</th>
+                    <th>SELECT</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for candidate in candidates %}
+                <tr>
+                    <td></td>
+                    <td>{{candidate.Name}}</td>
+                    <td>{{candidate.Branch}}</td>
+                    <td>{{candidate.Register}}</td>
+                    <td>
+                        <form action='/castvote' method="POST">
+                        <button type="submit" value='{{candidate.Register}}' name='vote' class="vote_button" onclick="window.location.href='/castvote'">Vote</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <script>
+            function myFunction() {
+                confirm("Press OK to Confirm!");
+            }
+        </script>
+    </html>
+</html>

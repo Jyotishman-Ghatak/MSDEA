@@ -1,77 +1,81 @@
-<!DOCTYPE HTML>
-<html lang="en" >
-<html>
-<head>
-  <title>Vote your Candidate!</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='candidate_style.css')}}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>  
-</head>
-<script language="Javascript">
-    <!--
-    function OnButton1()
-    {
-        document.Form1.action = "/delete"
-           
-        document.Form1.submit();             
-        return true;
-    }
-    
-    function OnButton2()
-    {
-        document.Form1.action = "/validatevoter"
-        document.Form1.submit();             // Submit the page
-        return true;
-    }
-    -->
-    </script>
-<center>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for msg in messages%}
-        <p>{{msg}}</p>
-        {% endfor %}
-    {% endif %}
-    {% endwith %}
-</center>
-   <table class="candidate">
-        <thead>
-            <tr>
-                <th>NAME</th>
-                <th>REGISTER NO.</th>
-                <th>EMAIL</th>
-                <th>DOB</th>
-                <th>VALIDATE</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for voter in voters%}    
-            <tr>
-                <td>{{voter.Name}}</td>
-                <td>{{voter.Register}}</td>
-                <td>{{voter.email}}</td>
-                <td>{{voter.DOB}}</td>
-                <td>
-                <div class="radio">
-                    <form name="Form1" method="POST" >
-                      <label><input type="radio" value='{{voter.Register}}' name="optradio"></label>
-                    
-                 </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<!DOCTYPE html>
+<html lang="en">
+    <html>
+        <head>
+            <title>Validate Voters</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta charset="utf-8" />
+            <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='validateVoter_style.css')}}" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+            <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600" rel="stylesheet" type="text/css" />
+        </head>
+        <div class="container">
+            <div class="image-container">
+                <div class="text">Modern Secured Digital eVoting & Analysis</div>
+            </div>
+            <button class="btn" style="font-size: 20px; cursor: pointer;" onclick="openNav()">&#9776; Manage</button>
+        </div>
 
-<center>
-<div class="button_css">	
-  <div class="vote">
-      <button type="button" onclick="window.location.href='/candidate_reg'">BACK</button>
-      <button type="submit" onclick="return OnButton1();">DELETE</button>
-      <button type="submit" onclick="return OnButton2();">VALIDATE</button>
-  </div>
-</form>
-</div>
-</center>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a style="color: white;" href="/">LOGOUT</a>
+            <a style="color: white;" href="/candidate_reg">Registration</a>
+            <a style="color: white;" href="/voter">View Voters</a>
+            <a style="color: white;" href="/candidate">View Candidate</a>
+            <a style="color: white;" href="/graph">Visualize Data</a>
+           
+        </div>
+         
+        <script>
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "250px";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
+        </script>
+        
+        <table class="candidate">
+            {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages%}
+                <p style="color:white;font-weight:1000;font-size:16px;text-align:center">{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>NAME</th>
+                    <th>REGISTER NO.</th>
+                    <th>EMAIL</th>
+                    <th>DOB</th>
+                    <th>VALIDATE</th>
+		    <th>DELETE</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for voter in voters%} 
+                <tr>
+                    <td></td>
+                    <td>{{voter.Name}}</td>
+                    <td>{{voter.Register}}</td>
+                    <td>{{voter.email}}</td>
+                    <td>{{voter.DOB}}</td>
+                <form method="POST" action='/validatevoter'>
+                    <td>
+                        <button type="submit" class="val_button" value="{{voter.Register}}" name="Validate" onclick="window.location.href='/validatevoter'">Validate</button>
+                    </td>
+                </form>
+                <form action='/delete' method="POST">
+		        <td>
+                        <button type="submit" class="del_button" value="{{voter.Register}}" name='Delete'  onclick="window.location.href='/validatevoter'">Delete</button>
+                    </td>
+                </form>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </html>
+</html>
