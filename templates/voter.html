@@ -22,7 +22,7 @@
             <a style="color: white;" href="candidate_reg">Registration</a>
             <a style="color: white;" href="/validatevoter">Validate Voters</a>
             <a style="color: white;" href="/candidate">View Candidates</a>
-            <a style="color: white;" href="/graph">Visualize Data</a>
+            
         </div>
 
         <script>
@@ -51,7 +51,7 @@
                 <tr>
                     <td></td>
                     <td>{{voter.Name}}</td>
-                    <td>{{voter.Register}}</td>
+                    <td>{{voter.Register.decode("utf-8")}}</td>
                     <td>{{voter.email}}</td>
                     <td>{{voter.DOB}}</td>
                     <td>{{voter.Voted}}</td>

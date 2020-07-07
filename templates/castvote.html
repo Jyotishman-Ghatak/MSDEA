@@ -19,7 +19,6 @@
                 <tr>
                     <th>S.No</th>
                     <th>NAME</th>
-                    <th>BRANCH</th>
                     <th>REG NO.</th>
                     <th>SELECT</th>
                 </tr>
@@ -29,11 +28,10 @@
                 <tr>
                     <td></td>
                     <td>{{candidate.Name}}</td>
-                    <td>{{candidate.Branch}}</td>
-                    <td>{{candidate.Register}}</td>
+                    <td>{{candidate.Register.decode('utf-8')}}</td>
                     <td>
                         <form action='/castvote' method="POST">
-                        <button type="submit" value='{{candidate.Register}}' name='vote' class="vote_button" onclick="window.location.href='/castvote'">Vote</button>
+                        <button type="submit" value='{{candidate.Register.decode("utf-8")}}' name='vote' class="vote_button" onclick="window.location.href='/castvote'">Vote</button>
                     </td>
                 </tr>
                 {% endfor %}

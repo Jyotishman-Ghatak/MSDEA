@@ -56,21 +56,22 @@
                 </tr>
             </thead>
             <tbody>
-                {% for voter in voters%} 
+                
+                {% for voter in voters%}
                 <tr>
                     <td></td>
                     <td>{{voter.Name}}</td>
-                    <td>{{voter.Register}}</td>
+                    <td>{{voter.Register.decode("utf-8")}}</td>
                     <td>{{voter.email}}</td>
                     <td>{{voter.DOB}}</td>
                 <form method="POST" action='/validatevoter'>
                     <td>
-                        <button type="submit" class="val_button" value="{{voter.Register}}" name="Validate" onclick="window.location.href='/validatevoter'">Validate</button>
+                        <button type="submit" class="val_button" value="{{voter.Register.decode("utf-8")}}" name="Validate" onclick="window.location.href='/validatevoter'">Validate</button>
                     </td>
                 </form>
                 <form action='/delete' method="POST">
 		        <td>
-                        <button type="submit" class="del_button" value="{{voter.Register}}" name='Delete'  onclick="window.location.href='/validatevoter'">Delete</button>
+                        <button type="submit" class="del_button" value="{{voter.Register.decode("utf-8")}}" name='Delete'  onclick="window.location.href='/validatevoter'">Delete</button>
                     </td>
                 </form>
                 </tr>

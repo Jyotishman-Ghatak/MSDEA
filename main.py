@@ -1,12 +1,12 @@
 #libraries used
 from flask import Flask,render_template,request,redirect,session,url_for,flash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy_utils import EncryptedType
+from sqlalchemy_utils.types.encrypted.encrypted_type import AesEngine
 import smtplib
 import random as r
 import pygal
 from passlib.context import CryptContext
-from sqlalchemy_utils import EncryptedType
-from sqlalchemy_utils.types.encrypted.encrypted_type import AesEngine
 
 pwd_context = CryptContext(                                             #pbkdf2_sha256 encryption used to save password        
         schemes=["pbkdf2_sha256"],                                              
@@ -17,28 +17,37 @@ pwd_context = CryptContext(                                             #pbkdf2_
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/voting'              
 app.secret_key="hellothere"
+secret_key='hello'
 admin_username='admin'                                                          #default admin password
 admin_password="1234"
 db = SQLAlchemy(app)
 
 class Voter(db.Model):                                                                  #DATABASE MODEL
     Sno = db.Column(db.Integer, primary_key=True)
-    Name = db.Column(db.String(30), nullable=False)
-    email = db.Column(db.String(30), unique=True, nullable=False)
+    Name = db.Column(EncryptedType(db.String(30),secret_key,AesEngine,'pkcs5'), nullable=False)
+    email = db.Column(EncryptedType(db.String(30),secret_key,AesEngine,'pkcs5'), nullable=False)
     DOB= db.Column(db.String(30), nullable=False)
-    Register = db.Column(db.String(120), unique=True, nullable=False)
+    Register = db.Column(db.Integer, unique=True, nullable=False)
     Valid= db.Column(db.Boolean,nullable=False)
     Voted= db.Column(db.Boolean,nullable=False)
     Password=db.Column(db.String(120), nullable=False)
 
 class Candidate(db.Model):
     Sno = db.Column(db.Integer, primary_key=True)
-    Name = db.Column(db.String(30), nullable=False)
+    Name = db.Column(EncryptedType(db.String(30),secret_key,AesEngine,'pkcs5'), nullable=False)
     Register = db.Column(db.String(30), unique=True, nullable=False)
+    email = db.Column(EncryptedType(db.String(30),secret_key,AesEngine,'pkcs5'), nullable=False)
+    DOB= db.Column(db.String(30), nullable=False)
+    Count = db.Column(db.Integer, nullable=False)
+
+class temp(db.Model):                                                                  #DATABASE MODEL
+    Sno = db.Column(db.Integer, primary_key=True)
+    Name = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
     DOB= db.Column(db.String(30), nullable=False)
-    Branch= db.Column(db.String(30), nullable=False)
-    Count = db.Column(db.Integer, nullable=False)
+    Register = db.Column(db.Integer, unique=True, nullable=False)
+    Valid= db.Column(db.Boolean,nullable=False)
+    Voted= db.Column(db.Boolean,nullable=False)
 
 @app.route('/')
 def home():    
@@ -103,7 +112,8 @@ def validatevoter():
         return redirect('/')
         
     else:
-        voters=Voter.query.filter(Voter.Valid.like(0)).all()
+        print("1")
+        voters=Voter.query.filter(Voter.Valid.like('0')).all()
         if(len(voters)>0):
             return render_template("validatevoter.html",voters=voters)
         else:
@@ -117,9 +127,8 @@ def candidate_reg():
             Name=request.form.get('Name')
             email=request.form.get('email')
             DOB=request.form.get('DOB')
-            Branch=request.form.get('Branch')
             Register=request.form.get('Register')
-            entry= Candidate(Name=Name, email=email,DOB=DOB, Branch=Branch,Register=Register,Count=0)
+            entry= Candidate(Name=Name, email=email,DOB=DOB,Register=Register,Count=0)
             db.session.add(entry)
             db.session.commit()
             flash("Candidate Added Successfully!","info")
@@ -170,6 +179,7 @@ def login():
             session['Register']=Register
             session['voterlogin']=True
             email=voter.email
+            print(email)
             otp=""
             for i in range(4):
                 otp+=str(r.randint(1,9))
@@ -191,8 +201,7 @@ def login():
             flash("Invalid Username or Password")
             return render_template("login.html") 
     else:
-
-            return render_template('login.html')  
+        return render_template('login.html')  
 
 @app.route('/castvote',methods=["GET","POST"])                                      #casting vote to candidate
 def castvote():

@@ -41,7 +41,6 @@
                 <tr>
                     <th>S.No</th>
                     <th>NAME</th>
-                    <th>BRANCH</th>
                     <th>REGISTER NO.</th>
                     <th>EMAIL</th>
                     <th>DOB</th>
@@ -54,8 +53,7 @@
                     <tr>
                         <td></td>
                         <td>{{candidate.Name}}</td>
-                        <td>{{candidate.Branch}}</td>
-                        <td>{{candidate.Register}}</td>
+                        <td>{{candidate.Register.decode("utf-8")}}</td>
                         <td>{{candidate.email}}</td>
                         <td>{{candidate.DOB}}</td>
                         <td>{{candidate.Count}}</td>
