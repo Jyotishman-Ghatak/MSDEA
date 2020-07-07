@@ -30,11 +30,11 @@ software requirements of this system.
 
 * **Candidates List**
 
-| Sno| Name           | Branch  | Register     | email                     | DOB        | Vote Count |  
-|--- |:--------------:|:-------:|:------------:|:-------------------------:|:----------:|-----------:|
-| 1  | Jayesh Baibhav | CSE     |39110403      | baibhav.jayesh@gmail.com  | 04-02-2000 | 336|
-| 2  | Vivek          | ECE     |39110705      | vivek@outlook.com         | 21-08-41   | 254 |
-| 3  | Jhonny         | CSE     |39110498      | Jhonny@gmail.com          | 15-01-2002 | 95  |  
+| Sno| Name           | Register     | email                     | DOB        | Vote Count |  
+|--- |:--------------:|:------------:|:-------------------------:|:----------:|-----------:|
+| 1  | Jayesh Baibhav |39110403      | baibhav.jayesh@gmail.com  | 04-02-2000 | 336|
+| 2  | Vivek          |39110705      | vivek@outlook.com         | 21-08-41   | 254 |
+| 3  | Jhonny         |39110498      | Jhonny@gmail.com          | 15-01-2002 | 95  |  
 ## Working
 MSDEA allows member to login with their credentials and securely log one vote,
 we ensure that each vote is transmitted securely without revealing the voter
